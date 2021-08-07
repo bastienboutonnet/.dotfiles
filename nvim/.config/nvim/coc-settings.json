@@ -1,0 +1,22 @@
+{
+    // python
+    "python.pythonPath": "python",
+    "python.venvPath": "~/venvs/",
+    "pyright.enable": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": ["src/"],
+//formatting
+    "suggest.enablePreview": true,
+    "coc.preferences.formatOnType": true,
+    "coc.preferences.formatOnSaveFiletypes": ["python"],
+
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "~/venvs/black/bin/black",
+    "python.formatting.blackArgs": ["--line-length", "100", "-t", "py38"],
+//linting
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "~/venvs/flake8/bin/flake8",
+    "python.linting.flake8Args": ["--max-line-length=120"],
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "~/venvs/mypy/bin/mypy"
+}
