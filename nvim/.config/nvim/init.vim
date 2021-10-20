@@ -92,7 +92,7 @@ let g:onedark_style = 'darker'
 colorscheme onedark
 
 " Settings START
-let mapleader = "\<Space>"
+let mapleader = ","
 filetype plugin on
 set completeopt=menuone
 set mouse=a
