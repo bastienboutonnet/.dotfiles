@@ -1,4 +1,6 @@
 call plug#begin('~/.vim/plugged')
+
+"Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 " Make sure you use single quotes
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
@@ -18,7 +20,7 @@ Plug 'machakann/vim-highlightedyank'
 "Plug 'joshdick/onedark.vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'rakr/vim-one'
-Plug 'junegunn/seoul256.vim'
+"Plug 'junegunn/seoul256.vim'
 Plug 'sheerun/vim-polyglot'
 "Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
 Plug 'tpope/vim-fugitive'
@@ -37,7 +39,7 @@ Plug 'BurntSushi/ripgrep'
 "Plug 'bling/vim-bufferline'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'tiagovla/tokyodark.nvim'
+"Plug 'tiagovla/tokyodark.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
@@ -46,8 +48,10 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'navarasu/onedark.nvim'
-Plug 'crispgm/nvim-tabline'
-
+"Plug 'crispgm/nvim-tabline'
+Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+" Plug 'ryanoasis/vim-devicons' Icons without colours
+Plug 'akinsho/bufferline.nvim'
 "Initialize plugin system
 call plug#end()
 
