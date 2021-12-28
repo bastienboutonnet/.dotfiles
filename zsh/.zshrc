@@ -109,7 +109,7 @@ export NVM_DIR="$HOME/.nvm"
 
 #export PATH="/opt/homebrew/opt/icu4c/bin:$PATH"
 #export PATH="/opt/homebrew/opt/icu4c/sbin:$PATH"
-
+eval "$(pyenv init --path)"
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="vim"
@@ -122,3 +122,21 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$PATH:/Users/bastienboutonnet/.local/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/bastienboutonnet/.pyenv/versions/miniforge3-4.9.2/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/bastienboutonnet/.pyenv/versions/miniforge3-4.9.2/etc/profile.d/conda.sh" ]; then
+        . "/Users/bastienboutonnet/.pyenv/versions/miniforge3-4.9.2/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/bastienboutonnet/.pyenv/versions/miniforge3-4.9.2/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
