@@ -53,6 +53,8 @@ Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 " Plug 'ryanoasis/vim-devicons' Icons without colours
 Plug 'akinsho/bufferline.nvim'
 "Initialize plugin system
+"Plug 'monsonjeremy/onedark.nvim'
+Plug 'olimorris/onedarkpro.nvim'
 call plug#end()
 
 "Load the lua modules for plugin which have their settings in lua files
@@ -92,8 +94,8 @@ let g:airline_theme='deus'
 "for yank
 hi HighlightedyankRegion cterm=reverse gui=reverse
 syntax on
-let g:onedark_style = 'darker'
-colorscheme onedark
+"let g:onedark_style = 'darker'
+"colorscheme onedark
 
 " Settings START
 let mapleader = ","
