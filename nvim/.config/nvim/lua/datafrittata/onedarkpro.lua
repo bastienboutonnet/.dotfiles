@@ -7,8 +7,11 @@ onedarkpro.setup({
     },
   },
   styles = {
-      functions = "italic", -- Style that is applied to functions
+      functions = "italic,bold", -- Style that is applied to functions
       keywords = "italic",
+  },
+  options = {
+      cursorline = true,
   },
 })
 onedarkpro.load()
