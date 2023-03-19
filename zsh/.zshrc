@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -113,6 +115,7 @@ eval "$(pyenv init --path)"
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="vim"
+alias ci="code-insiders ."
 
 #alias python="/Users/bastienboutonnet/.python-version"
 
@@ -139,4 +142,44 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
+# LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
+# echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+# Venv FZF activation
+function a() {
+  local selected_env
+  selected_env=$(ls ~/venvs/ | fzf)
+
+  if [ -n "$selected_env" ]; then
+    source "$HOME/venvs/$selected_env/bin/activate"
+  fi
+}
+
+# git branches delete
+function delete-branches() {
+  local branches_to_delete
+  branches_to_delete=$(git branch | fzf --multi)
+
+  if [ -n "$branches_to_delete" ]; then 
+    git branch --delete --force $branches_to_delete
+  fi
+}
+
 

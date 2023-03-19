@@ -15,6 +15,7 @@ Plug 'scrooloose/nerdtree'
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'machakann/vim-highlightedyank'
+Plug 'wakatime/vim-wakatime'
 "Plug 'lifepillar/vim-gruvbox8'
 "Plug 'tmhedberg/SimpylFold'
 "Plug 'joshdick/onedark.vim'
@@ -43,7 +44,8 @@ Plug 'nvim-treesitter/playground'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim'
+"Plug 'glepnir/lspsaga.nvim'
+Plug 'tami5/lspsaga.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ThePrimeagen/harpoon'
@@ -55,6 +57,7 @@ Plug 'akinsho/bufferline.nvim'
 "Initialize plugin system
 "Plug 'monsonjeremy/onedark.nvim'
 Plug 'olimorris/onedarkpro.nvim'
+Plug 'ruanyl/vim-gh-line'
 call plug#end()
 
 "Load the lua modules for plugin which have their settings in lua files
@@ -135,5 +138,4 @@ autocmd BufReadPost *
 
 " use omni completion provided by lsp
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
 

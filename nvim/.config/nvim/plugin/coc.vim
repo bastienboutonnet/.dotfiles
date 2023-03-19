@@ -9,16 +9,16 @@ set shortmess+=c
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? "\<C-n>" :
+      "\ <SID>check_back_space() ? "\<TAB>" :
+      "\ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -30,11 +30,9 @@ endif
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -106,3 +104,25 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '
+    \ . (len(<q-args>) > 0 ? <q-args> : '""'), 0,
+    \ fzf#vim#with_preview({'options': ['--delimiter=:', '--nth=2..', '--layout=reverse', '--info=inline']}), <bang>0)
+
+nmap <silent> gi yiw:Rg <C-R>" <CR>
+
+
+" Go To Implementation
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '
+    \ . (len(<q-args>) > 0 ? <q-args> : '""'), 0,
+    \ fzf#vim#with_preview({'options': ['--delimiter=:', '--nth=2..', '--layout=reverse', '--info=inline']}), <bang>0)
+
+nmap <silent> gi yiw:Rg <C-R>" <CR>
+" Go To Implementation
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '
+    \ . (len(<q-args>) > 0 ? <q-args> : '""'), 0,
+    \ fzf#vim#with_preview({'options': ['--delimiter=:', '--nth=2..', '--layout=reverse', '--info=inline']}), <bang>0)
+
+nmap <silent> gi yiw:Rg <C-R>" <CR>
