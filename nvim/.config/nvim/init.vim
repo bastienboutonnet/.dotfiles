@@ -7,8 +7,8 @@ Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tabnine', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 "Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -39,8 +39,6 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'BurntSushi/ripgrep'
 "Plug 'bling/vim-bufferline'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-"Plug 'tiagovla/tokyodark.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
@@ -58,6 +56,13 @@ Plug 'akinsho/bufferline.nvim'
 "Plug 'monsonjeremy/onedark.nvim'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'ruanyl/vim-gh-line'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'feline-nvim/feline.nvim', { 'branch': '0.5-compat' }
+Plug 'tiagovla/tokyodark.nvim'
+Plug 'uloco/bluloco.nvim'
+Plug 'rktjmp/lush.nvim'
+Plug 'github/copilot.vim'
 call plug#end()
 
 "Load the lua modules for plugin which have their settings in lua files
@@ -86,19 +91,23 @@ nmap <Leader>e :Files<CR>
 "nmap <Leader>p :Rg<CR>
 nmap <Leader>g? :GFiles?<CR>
 nmap <Leader>h :History<CR>
+nnoremap <C-w> :echo expand('%:p')<CR>
+
+
 
 "Load coc settings
 " TODO: I need to check whether I can get rid of coc one day
 runtime coc-init.vim
 
 "# Themes and Look related stuff
-let g:airline_powerline_fonts = 1
-let g:airline_theme='deus'
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='deus'
 "for yank
 hi HighlightedyankRegion cterm=reverse gui=reverse
 syntax on
 "let g:onedark_style = 'darker'
 "colorscheme onedark
+
 
 " Settings START
 let mapleader = ","

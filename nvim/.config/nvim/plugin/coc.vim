@@ -42,7 +42,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 :nmap <silent> T :<C-U>call CocAction('doHover')<CR>
@@ -105,20 +105,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 
 command! -bang -nargs=* Rg
-    \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '
-    \ . (len(<q-args>) > 0 ? <q-args> : '""'), 0,
-    \ fzf#vim#with_preview({'options': ['--delimiter=:', '--nth=2..', '--layout=reverse', '--info=inline']}), <bang>0)
 
-nmap <silent> gi yiw:Rg <C-R>" <CR>
-
-
-" Go To Implementation
-command! -bang -nargs=* Rg
-    \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '
-    \ . (len(<q-args>) > 0 ? <q-args> : '""'), 0,
-    \ fzf#vim#with_preview({'options': ['--delimiter=:', '--nth=2..', '--layout=reverse', '--info=inline']}), <bang>0)
-
-nmap <silent> gi yiw:Rg <C-R>" <CR>
 " Go To Implementation
 command! -bang -nargs=* Rg
     \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --case-sensitive '

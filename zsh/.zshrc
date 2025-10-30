@@ -159,9 +159,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
 # LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 # echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-
+export PATH=$PATH:$HOME/bin
 # Venv FZF activation
 function a() {
   local selected_env
@@ -171,6 +169,41 @@ function a() {
     source "$HOME/venvs/$selected_env/bin/activate"
   fi
 }
+# Venv FZF removal
+function vr() {
+  local selected_env
+  selected_env=$(ls ~/venvs/ | fzf)
+
+  if [ -n "$selected_env" ]; then
+    rm -rf "$HOME/venvs/$selected_env/"
+  fi
+}
+
+# venv creation
+mkvenv() {
+    local env_dir="$HOME/venvs/$1"
+
+    if [ -d "$env_dir" ]; then
+        echo "Error: Virtual environment $1 already exists in $HOME/venvs."
+        return 1
+    else
+        python3 -m venv "$env_dir"
+        echo "Virtual environment $1 created successfully in $HOME/venvs."
+
+        # Activate the virtual environment
+        source "$env_dir/bin/activate"
+
+        # Upgrade pip in the virtual environment
+        pip install --upgrade pip
+        echo "pip upgraded successfully in the virtual environment $1."
+
+        # Deactivate the virtual environment
+        deactivate
+    fi
+}
+
+# Example usage
+# mkvenv myenv
 
 # git branches delete
 function delete-branches() {
@@ -181,5 +214,10 @@ function delete-branches() {
     git branch --delete --force $branches_to_delete
   fi
 }
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
-
+export PATH=$PATH:~/.dopy
+eval "$(zoxide init --cmd cd zsh)"
+export PATH=$(go env GOPATH)/bin:$PATH
+alias tbar-restart='sudo pkill TouchBarServer; sudo killall "ControlStrip"'
