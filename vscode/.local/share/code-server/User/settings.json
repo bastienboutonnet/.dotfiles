@@ -1,0 +1,89 @@
+{
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "atlascode.bitbucket.enabled": false,
+  "atlascode.jira.enabled": true,
+  "atlascode.jira.jqlList": [
+    {
+      "enabled": true,
+      "id": "633b614b-e13a-4457-994c-95e2d0d5e76e",
+      "monitor": true,
+      "name": "My sodadata Issues",
+      "query": "assignee = currentUser() AND resolution = Unresolved ORDER BY lastViewed DESC",
+      "siteId": "80fae02d-55cc-4e54-99fd-9e525a9ad953"
+    }
+  ],
+  "cSpell.enableFiletypes": ["!python"],
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.fontFamily": "OperatorMono Nerd Font, Dank Mono, Monolisa, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.lineNumbers": "relative",
+  "files.associations": {
+    "**/**/intelligence_analytics/**/*/**/*.sql": "jinja-sql",
+    "**/intelligence_analytics/**/*.yaml": "jinja-yaml",
+    "**/intelligence_analytics/**/*.yml": "jinja-yaml",
+    "**/intelligence_analytics/**/docs/**/*.md": "jinja-md"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "json.maxItemsComputed": 10000,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.venvPath": "~/venvs/",
+  "redhat.telemetry.enabled": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "sql.linter.executablePath": "/Users/bastienboutonnet/.local/bin/sqlfluff",
+  "sqlfluff.config": "${workspaceFolder}/.sqlfluff",
+  "sqlfluff.dialect": "snowflake",
+  "sqlfluff.executablePath": "/Users/bastienboutonnet/venvs/dbt/bin/sqlfluff",
+  "sqlfluff.linter.run": "onSave",
+  "sqlfluff.workingDirectory": "${workspaceFolder}",
+  "tabnine.experimentalAutoImports": true,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "terminal.integrated.fontSize": 14,
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/bastienboutonnet/.config/nvim/init.vim",
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "yaml.schemas": {
+    "file:///Users/bastienboutonnet/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.largeFileOptimizations": false,
+  "snowflake.connectionsConfigFile": "/Users/bastienboutonnet/.snowflake/connections.toml",
+  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "prettier.enable": false,
+  "go.toolsManagement.autoUpdate": true,
+  "docker.extension.enableComposeLanguageServer": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1"
+}

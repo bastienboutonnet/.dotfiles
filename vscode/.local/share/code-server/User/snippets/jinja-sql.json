@@ -1,0 +1,9 @@
+{
+    "surrogate_key": {
+        "prefix": "surrogate_key",
+        "body": [
+            "{{ dbt_magic.generate_unique_key([${1:columns_list}], '${2:key_name}') }}"
+        ],
+        "description": "surrogate_key"
+    }
+}
