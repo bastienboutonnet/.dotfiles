@@ -3,7 +3,7 @@ set -e
 
 echo "[dotfiles] Starting setup..."
 
-# Make sure stow is installed
+# Ensure GNU Stow is available
 if ! command -v stow >/dev/null 2>&1; then
   echo "[dotfiles] Installing GNU Stow..."
   if command -v apt-get >/dev/null 2>&1; then
@@ -15,23 +15,28 @@ if ! command -v stow >/dev/null 2>&1; then
   fi
 fi
 
-# Apply only the vscode package
-if [ -d "$HOME/dotfiles/vscode" ]; then
-  echo "[dotfiles] Applying VS Code configuration..."
-  cd "$HOME/dotfiles"
+# Detect environment: macOS VS Code vs. code-server
+if [ -d "$HOME/.local/share/code-server" ]; then
+  echo "[dotfiles] Detected code-server environment."
+  mkdir -p "$HOME/.local/share/code-server/User"
+  cd "$HOME/.dotfiles"
+  stow --target="$HOME/.local/share/code-server" vscode
+elif [ "$(uname)" = "Darwin" ]; then
+  echo "[dotfiles] Detected macOS VS Code environment."
+  mkdir -p "$HOME/Library/Application Support/Code/User"
+  cd "$HOME/.dotfiles"
   stow vscode
 else
-  echo "[dotfiles] vscode/ directory not found, skipping."
+  echo "[dotfiles] Unknown environment; skipping VS Code linking."
 fi
 
-# Optional: install VS Code extensions if the list exists
-if [ -f "$HOME/dotfiles/vscode/.vscode/extensions.txt" ]; then
+# Optional: install VS Code extensions if listed
+if [ -f "$HOME/.dotfiles/vscode/extensions.txt" ]; then
   echo "[dotfiles] Installing extensions from extensions.txt..."
   while read -r ext; do
+    [ -z "$ext" ] && continue
     code --install-extension "$ext" || true
-  done < "$HOME/dotfiles/vscode/.vscode/extensions.txt"
-else
-  echo "[dotfiles] No extensions.txt found, skipping extension install."
+  done < "$HOME/.dotfiles/vscode/extensions.txt"
 fi
 
 echo "[dotfiles] Setup complete!"
