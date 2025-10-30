@@ -15,7 +15,7 @@ if ! command -v stow >/dev/null 2>&1; then
   fi
 fi
 
-# ─── 2. Detect environment (macOS vs code-server) ───────────────────────────────
+# ─── 2. Detect environment ─────────────────────────────────────────────────────
 if [ -d "$HOME/.local/share/code-server" ]; then
   echo "[dotfiles] Detected code-server environment."
   TARGET_DIR="$HOME/.local/share/code-server"
@@ -29,9 +29,12 @@ else
   TARGET_DIR=""
 fi
 
-# ─── 3. Apply symlinks with Stow ────────────────────────────────────────────────
+# ─── 3. Apply symlinks with Stow ───────────────────────────────────────────────
 if [ -n "$TARGET_DIR" ]; then
   cd "$HOME/.dotfiles"
+  echo "[dotfiles] Cleaning up conflicts in $TARGET_DIR/User"
+  rm -f "$TARGET_DIR/User/settings.json" "$TARGET_DIR/User/keybindings.json"
+
   echo "[dotfiles] Applying symlinks into: $TARGET_DIR"
   stow --restow --target="$TARGET_DIR" --quiet vscode
 fi
@@ -50,6 +53,8 @@ if [ -f "$HOME/.dotfiles/vscode/extensions.txt" ]; then
   else
     echo "[dotfiles] 'code' command not found; skipping extension install."
   fi
+else
+  echo "[dotfiles] No extensions.txt found, skipping extension install."
 fi
 
 echo "[dotfiles] Setup complete!"
