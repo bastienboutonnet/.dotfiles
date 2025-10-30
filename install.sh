@@ -44,9 +44,8 @@ EXT_LIST="$HOME/.dotfiles/vscode/extensions.txt"
 if [ -f "$EXT_LIST" ]; then
   echo "[dotfiles] Installing VS Code extensions..."
 
-  # Wait up to 30s for code-server to become available
   INSTALL_CMD=""
-  for i in {1..30}; do
+  for i in $(seq 1 120); do
     if command -v code >/dev/null 2>&1; then
       INSTALL_CMD="code"; break
     elif command -v code-server >/dev/null 2>&1; then
@@ -54,12 +53,15 @@ if [ -f "$EXT_LIST" ]; then
     elif [ -x "/tmp/coder-script-data/bin/code-server" ]; then
       INSTALL_CMD="/tmp/coder-script-data/bin/code-server"; break
     fi
-    echo "[dotfiles] Waiting for code-server to become available... ($i/30)"
+    # Print progress every 5 seconds
+    if (( i % 5 == 0 )); then
+      echo "[dotfiles] Waiting for code-server... ($i/120)"
+    fi
     sleep 1
   done
 
   if [ -z "$INSTALL_CMD" ]; then
-    echo "[dotfiles] No VS Code binary found after waiting; skipping extension install."
+    echo "[dotfiles] No VS Code binary found after 120s; skipping extension install."
   else
     echo "[dotfiles] Using: $INSTALL_CMD"
     INSTALLED=0
@@ -86,7 +88,6 @@ if [ -f "$SETTINGS_FILE" ]; then
   THEME_NAME=$(grep -oP '(?<="workbench.colorTheme": ")[^"]+' "$SETTINGS_FILE" || true)
   if [ -n "$THEME_NAME" ]; then
     echo "[dotfiles] Ensuring color theme '$THEME_NAME' is applied..."
-    # Clear cached theme state to force reload on next start
     rm -f "$HOME/.local/share/code-server/User/workbenchState.json" || true
   fi
 fi
