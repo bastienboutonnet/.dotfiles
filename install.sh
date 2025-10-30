@@ -39,12 +39,12 @@ if [ -n "$TARGET_DIR" ]; then
   stow --restow --target="$TARGET_DIR" vscode
 fi
 
-# ─── 4. Install VS Code extensions ─────────────────────────────────────────────
+# ─── 4. Install VS Code or code-server extensions ──────────────────────────────
 EXT_LIST="$HOME/.dotfiles/vscode/extensions.txt"
 if [ -f "$EXT_LIST" ]; then
   echo "[dotfiles] Installing VS Code extensions..."
 
-  # Detect which binary to use
+  # Detect correct binary
   if command -v code >/dev/null 2>&1; then
     INSTALL_CMD="code"
   elif command -v code-server >/dev/null 2>&1; then
@@ -52,7 +52,6 @@ if [ -f "$EXT_LIST" ]; then
   elif [ -x "/tmp/coder-script-data/bin/code-server" ]; then
     INSTALL_CMD="/tmp/coder-script-data/bin/code-server"
   else
-    echo "[dotfiles] No VS Code or code-server binary found; skipping."
     INSTALL_CMD=""
   fi
 
@@ -65,11 +64,24 @@ if [ -f "$EXT_LIST" ]; then
       fi
     done < "$EXT_LIST"
     echo "[dotfiles] Extension sync complete!"
+  else
+    echo "[dotfiles] No VS Code binary found; skipping extension install."
   fi
 else
   echo "[dotfiles] No extensions.txt found, skipping extension install."
 fi
 
-# ─── 5. Wrap up ────────────────────────────────────────────────────────────────
+# ─── 5. Ensure theme is applied after extension install ────────────────────────
+SETTINGS_FILE="$HOME/.local/share/code-server/User/settings.json"
+if [ -f "$SETTINGS_FILE" ]; then
+  THEME_NAME=$(grep -oP '(?<="workbench.colorTheme": ")[^"]+' "$SETTINGS_FILE" || true)
+  if [ -n "$THEME_NAME" ]; then
+    echo "[dotfiles] Ensuring color theme '$THEME_NAME' is applied..."
+    # Clear stale cached theme state so VS Code re-applies the theme on next load
+    rm -f "$HOME/.local/share/code-server/User/workbenchState.json" || true
+  fi
+fi
+
+# ─── 6. Wrap up ────────────────────────────────────────────────────────────────
 echo "[dotfiles] Setup complete!"
 sleep 2
