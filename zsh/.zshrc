@@ -221,3 +221,4 @@ export PATH=$PATH:~/.dopy
 eval "$(zoxide init --cmd cd zsh)"
 export PATH=$(go env GOPATH)/bin:$PATH
 alias tbar-restart='sudo pkill TouchBarServer; sudo killall "ControlStrip"'
+alias hello='echo Hello, Bastien!'
