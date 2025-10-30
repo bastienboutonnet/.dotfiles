@@ -7,7 +7,8 @@ echo "[dotfiles] Starting setup..."
 if ! command -v stow >/dev/null 2>&1; then
   echo "[dotfiles] Installing GNU Stow..."
   if command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update -y && sudo apt-get install -y stow
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq stow
   elif command -v brew >/dev/null 2>&1; then
     brew install stow
   else
@@ -36,11 +37,12 @@ if [ -n "$TARGET_DIR" ]; then
   rm -f "$TARGET_DIR/User/settings.json" "$TARGET_DIR/User/keybindings.json"
 
   echo "[dotfiles] Applying symlinks into: $TARGET_DIR"
-  stow --restow --target="$TARGET_DIR" --quiet vscode
+  stow --restow --target="$TARGET_DIR" vscode
 fi
 
 # ─── 4. Install VS Code extensions ─────────────────────────────────────────────
-if [ -f "$HOME/.dotfiles/vscode/extensions.txt" ]; then
+EXT_LIST="$HOME/.dotfiles/vscode/extensions.txt"
+if [ -f "$EXT_LIST" ]; then
   echo "[dotfiles] Installing VS Code extensions..."
   if command -v code >/dev/null 2>&1; then
     while read -r ext; do
@@ -49,7 +51,8 @@ if [ -f "$HOME/.dotfiles/vscode/extensions.txt" ]; then
         echo "  ↳ Installing: $ext"
         code --install-extension "$ext" || true
       fi
-    done < "$HOME/.dotfiles/vscode/extensions.txt"
+    done < "$EXT_LIST"
+    echo "[dotfiles] Extension sync complete!"
   else
     echo "[dotfiles] 'code' command not found; skipping extension install."
   fi
@@ -57,4 +60,6 @@ else
   echo "[dotfiles] No extensions.txt found, skipping extension install."
 fi
 
+# ─── 5. Wrap up ────────────────────────────────────────────────────────────────
 echo "[dotfiles] Setup complete!"
+sleep 2
