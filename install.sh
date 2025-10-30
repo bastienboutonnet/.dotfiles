@@ -20,23 +20,27 @@ if [ -d "$HOME/.local/share/code-server" ]; then
   echo "[dotfiles] Detected code-server environment."
   mkdir -p "$HOME/.local/share/code-server/User"
   cd "$HOME/.dotfiles"
-  stow --target="$HOME/.local/share/code-server" vscode
+  stow --restow --target="$HOME/.local/share/code-server" vscode
 elif [ "$(uname)" = "Darwin" ]; then
   echo "[dotfiles] Detected macOS VS Code environment."
   mkdir -p "$HOME/Library/Application Support/Code/User"
   cd "$HOME/.dotfiles"
-  stow vscode
+  stow --restow vscode
 else
   echo "[dotfiles] Unknown environment; skipping VS Code linking."
 fi
 
-# Optional: install VS Code extensions if listed
+# Optional: install VS Code extensions
 if [ -f "$HOME/.dotfiles/vscode/extensions.txt" ]; then
   echo "[dotfiles] Installing extensions from extensions.txt..."
-  while read -r ext; do
-    [ -z "$ext" ] && continue
-    code --install-extension "$ext" || true
-  done < "$HOME/.dotfiles/vscode/extensions.txt"
+  if command -v code >/dev/null 2>&1; then
+    while read -r ext; do
+      [ -z "$ext" ] && continue
+      code --install-extension "$ext" || true
+    done < "$HOME/.dotfiles/vscode/extensions.txt"
+  else
+    echo "[dotfiles] 'code' command not found; skipping extension install."
+  fi
 fi
 
 echo "[dotfiles] Setup complete!"
