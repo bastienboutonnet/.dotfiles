@@ -35,7 +35,6 @@ if [ -n "$TARGET_DIR" ]; then
   cd "$HOME/.dotfiles"
   echo "[dotfiles] Cleaning up conflicts in $TARGET_DIR/User"
   rm -f "$TARGET_DIR/User/settings.json" "$TARGET_DIR/User/keybindings.json"
-
   echo "[dotfiles] Applying symlinks into: $TARGET_DIR"
   stow --restow --target="$TARGET_DIR" vscode
 fi
@@ -44,17 +43,28 @@ fi
 EXT_LIST="$HOME/.dotfiles/vscode/extensions.txt"
 if [ -f "$EXT_LIST" ]; then
   echo "[dotfiles] Installing VS Code extensions..."
+
+  # Detect which binary to use
   if command -v code >/dev/null 2>&1; then
+    INSTALL_CMD="code"
+  elif command -v code-server >/dev/null 2>&1; then
+    INSTALL_CMD="code-server"
+  elif [ -x "/tmp/coder-script-data/bin/code-server" ]; then
+    INSTALL_CMD="/tmp/coder-script-data/bin/code-server"
+  else
+    echo "[dotfiles] No VS Code or code-server binary found; skipping."
+    INSTALL_CMD=""
+  fi
+
+  if [ -n "$INSTALL_CMD" ]; then
     while read -r ext; do
       [[ -z "$ext" || "$ext" =~ ^# ]] && continue
-      if ! code --list-extensions | grep -q "$ext"; then
+      if ! $INSTALL_CMD --list-extensions | grep -q "$ext"; then
         echo "  ↳ Installing: $ext"
-        code --install-extension "$ext" || true
+        $INSTALL_CMD --install-extension "$ext" || true
       fi
     done < "$EXT_LIST"
     echo "[dotfiles] Extension sync complete!"
-  else
-    echo "[dotfiles] 'code' command not found; skipping extension install."
   fi
 else
   echo "[dotfiles] No extensions.txt found, skipping extension install."
