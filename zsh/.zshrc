@@ -210,10 +210,27 @@ function delete-branches() {
   local branches_to_delete
   branches_to_delete=$(git branch | fzf --multi)
 
-  if [ -n "$branches_to_delete" ]; then 
+  if [ -n "$branches_to_delete" ]; then
     git branch --delete --force $branches_to_delete
   fi
 }
+
+# Claude agent worktree creator
+claude-agent() {
+  local name=$1
+  if [ -z "$name" ]; then
+    echo "Usage: claude-agent <worktree-name>"
+    return 1
+  fi
+
+  local repo_dir="/Users/bastienboutonnet/repos/littlebooker"
+  local worktree_path="${repo_dir}-${name}"
+
+  git -C "$repo_dir" worktree add "$worktree_path" -b "feature/${name}"
+  cd "$worktree_path"
+  claude
+}
+
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
