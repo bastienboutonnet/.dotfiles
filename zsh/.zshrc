@@ -10,7 +10,8 @@ export ZSH="/Users/bastienboutonnet/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="fino-time"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -180,7 +181,7 @@ function vr() {
 }
 
 # venv creation
-mkvenv() {
+mkvenv_p3() {
     local env_dir="$HOME/venvs/$1"
 
     if [ -d "$env_dir" ]; then
@@ -198,6 +199,20 @@ mkvenv() {
         echo "pip upgraded successfully in the virtual environment $1."
 
         # Deactivate the virtual environment
+        deactivate
+    fi
+}
+mkvenv() {
+    local env_dir="$HOME/venvs/$1"
+    if [ -d "$env_dir" ]; then
+        echo "Error: Virtual environment $1 already exists in $HOME/venvs."
+        return 1
+    else
+        python -m venv "$env_dir"
+        echo "Virtual environment $1 created successfully in $HOME/venvs."
+        source "$env_dir/bin/activate"
+        pip install --upgrade pip
+        echo "pip upgraded successfully in the virtual environment $1."
         deactivate
     fi
 }
